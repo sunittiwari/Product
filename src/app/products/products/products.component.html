@@ -1,0 +1,48 @@
+<h1>{{pageTitle}}</h1>
+<!--<div classs = "container">
+
+</div>-->
+
+<div class = "panel panel-primary">
+    <div class = "panel-heading">
+      <!--<p>Hello I am</p>-->
+    </div> 
+      <div class = "panel-body">
+        <div>
+          <input type="text" class = "form-control"[(ngModel)]="filterBy" placeholder ="Filter products"/>
+          <div class = "alert alert-success" *ngIf="filterBy">
+            {{filterBy}}
+          </div>
+        </div>
+        <table class ="table table-bordered" *ngIf="products && products.length">
+          <tr>
+            <th>
+              <Button class = "btn btn-primary" (click) = "toggleImage()">
+               {{showHideImage? "Hide Image":'showHideImage'}} 
+              </Button>
+            </th>
+            <th>Product Name</th>
+            <th>Product Code</th>
+            <th>Price</th>
+            <th>Rating</th>
+          </tr>
+          <tr *ngFor = "let product of products |products:filterBy">
+            <td>
+              <!-- <img src = "{{imageUrl"/>-->
+              <img *ngIf="showHideImage" [src] = "product.imageUrl" style="width:50px;"/>
+            </td>
+            <td> <a [routerLink] = "['/products', product.productId]">
+              {{product.productName}}
+            </a>              </td>
+            <td>{{product.productCode}}</td>
+            <td>{{product.price}}</td>
+            <!--<td>{{product.starRating}}-->
+              <td>
+                <app-rating [rating]= "product.starRating"(ratingEvent)= "ratingParentFn($event)" ></app-rating>
+            </td>
+            
+          </tr>
+        </table>
+      </div>
+    
+  </div>
